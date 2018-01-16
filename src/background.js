@@ -16,7 +16,7 @@ function onHeadersReceived (details) {
     }
   })
 
-  console.log({headers})
+  console.log({ headers })
 
   return {
     responseHeaders: headers
@@ -28,9 +28,9 @@ const filter = {
   types: ['main_frame', 'sub_frame']
 }
 
-chrome.webRequest.onHeadersReceived.addListener(onHeadersReceived, filter, ['blocking', 'responseHeaders']);
+chrome.webRequest.onHeadersReceived.addListener(onHeadersReceived, filter, ['blocking', 'responseHeaders'])
 
-chrome.browserAction.onClicked.addListener(function() {
+chrome.browserAction.onClicked.addListener(function () {
   chrome.browsingData.remove({}, {
     'serviceWorkers': true
   }, function() {})
