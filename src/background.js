@@ -10,23 +10,11 @@ chrome.browserAction.onClicked.addListener(tab => {
 })
 
 function onHeadersReceived (details) {
-  let headers = []
-
-  for (let i = 0; i < details.responseHeaders.length; i++) {
-
-    if (details.responseHeaders[i].name.toLowerCase() === 'content-security-policy') {
-      headers = [
-        ...details.responseHeaders.slice(0, i),
-        ...details.responseHeaders.slice(i + 1),
-      ]
-      details.responseHeaders.splice(i, 1)
-    } else if (details.responseHeaders[i].name.toLowerCase() == 'x-frame-options') {
-      headers = [
-        ...details.responseHeaders.slice(0, i),
-        ...details.responseHeaders.slice(i + 1),
-      ]
+  const headers = details.responseHeaders.map(header => {
+    if (header.name.toLowerCase() !== 'content-security-policy' || header.name.toLowerCase() !== 'x-frame-options')  {
+      return header
     }
-  }
+  })
 
   console.log({headers})
 
